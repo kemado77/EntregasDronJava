@@ -13,7 +13,18 @@ import java.util.*;
  */
 public class Dron {
     private String comandos;
+    private int inicialx;
+    private int inicialy;
+    private char dirinicial;
     private List<PosicionDron> listaposiciones = new ArrayList<PosicionDron>();
+
+    public char getDirinicial() {
+        return dirinicial;
+    }
+
+    public void setDirinicial(char dirinicial) {
+        this.dirinicial = dirinicial;
+    }
    
     public Dron()
     {
@@ -24,21 +35,44 @@ public class Dron {
 	this.comandos = comandos;
 		
     }
+
+    public int getInicialx() {
+        return inicialx;
+    }
+
+    public void setInicialx(int inicialx) {
+        this.inicialx = inicialx;
+    }
+
+    public int getInicialy() {
+        return inicialy;
+    }
+
+    public void setInicialy(int inicialy) {
+        this.inicialy = inicialy;
+    }
+    
     public void setComandos(String comandos)
     {   
         this.comandos=comandos;
     }
+    public String getComandos()
+    {   
+        return comandos;
+    }
     public void despachar()
     {
-        int pos_act_x=0;
-        int pos_act_y=0;
-        char direccion_act='N';
-        PosicionDron dpos = new PosicionDron();
+               
+        PosicionDron dpos = new PosicionDron(this.getInicialx(),this.getInicialy(),this.getDirinicial());
+        char direccion_act=this.getDirinicial();
         listaposiciones.add(dpos);
-        System.out.println("Iniciando despacho");
-        for (int i = 0; i < comandos.length(); i++)
+        int pos_act_x=this.getInicialx();
+        int pos_act_y=this.getInicialy();
+       
+        String lcomandos=this.getComandos();
+        for (int i = 0; i < lcomandos.length(); i++)
         {
-            char comando = comandos.charAt(i);
+            char comando = lcomandos.charAt(i);
             switch (comando)
             {
                 case 'I':
@@ -54,6 +88,7 @@ public class Dron {
                     direccion_act = dpos.getdireccion();
                     pos_act_x=dpos.getX();
                     pos_act_y=dpos.getY();
+                    
                 break;
             }
             listaposiciones.add(dpos);

@@ -61,23 +61,32 @@ public class PruebaS4N {
             pw = new PrintWriter(fichero);
              pw.println("== Reporte de entregas == ");
              Dron d=new Dron();
+             d.setInicialx(0);
+             d.setInicialy(0);
+             d.setDirinicial('N');
             for (int i = 0; i < rutas.size();i++)
             {
                 String comandos = rutas.get(i);
-                System.out.println(comandos);
-                d.setComandos(comandos);
+                System.out.println("Nueva Ruta: "+ comandos);
+                d.setComandos(comandos);                
+                System.out.println("Posicion de Inicio: ("+d.getInicialx()+","+d.getInicialy()+","+d.getDirinicial()+")" );
                 d.despachar();
-                System.out.println("Movimientos Realizados: ");
+               
                 movimientos=d.obtenerPosicionesDron();
-                for(int j=0;j<movimientos.size();j++)
+                /*for(int j=0;j<movimientos.size();j++)
                 {   
                     PosicionDron mov = new PosicionDron();
                     mov=movimientos.get(j);
                     System.out.println("(" + mov.getX() + ","+ mov.getY() + "," + mov.getdireccion()+ ")");
-                }
+                }*/
                 PosicionDron mov = new PosicionDron();
                 mov=movimientos.get(movimientos.size()-1);
+                System.out.println("Posicion final: ");
+                System.out.println("(" + mov.getX() + ","+ mov.getY() + "," + mov.getdireccion()+ ")");
                 pw.println("(" + mov.getX() + ","+ mov.getY() + "," + mov.getdireccion()+ ")"); 
+                d.setInicialx(mov.getX());
+                d.setInicialy(mov.getY());
+                d.setDirinicial(mov.getdireccion());
             }
         }
         catch (Exception e)
